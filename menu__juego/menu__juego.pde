@@ -1,3 +1,4 @@
+//hola
 PImage pez, malo, malo1, fondo, alga, alga1;
 PImage vida1, vida2, vida3, vida4, vida5;
 PImage nivel;
