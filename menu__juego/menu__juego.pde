@@ -1,4 +1,4 @@
-PImage pez, malo, malo1, fondo, alga, alga1;
+PImage pez, malo, malo1, malo2, fondo, alga, alga1;
 PImage vida1, vida2, vida3, vida4, vida5;
 PImage nivel;
 
@@ -18,6 +18,7 @@ int xrojo, yrojo, xazul, yazul;
 int vida=5;
 int time, cntime=0;
 float v=5;
+float xmalo=width/2, ymalo=height/2;
 //float xnivel=random(width, 2*width), ynivel=random(0,width);
 //float xnivel,ynivel;
 
@@ -29,6 +30,7 @@ void setup() {
   pez=loadImage("pez.png");
   malo=loadImage("malo.png");
   malo1=loadImage("malo1.png");
+  malo2=loadImage("gnormal.png");
   
   nivel=loadImage("nivel.png");
 
@@ -118,7 +120,7 @@ void draw() {
     ///////////////////////////JUEGO
   case 2:    
     {
-      
+       v=5;
       if (time != second()){
         cntime++;        
         time = second();
@@ -195,8 +197,12 @@ void draw() {
     break;
     
    case 4:{
+      if (time != second()){
+        cntime++;        
+        time = second();
+      }
      
-     v=8;
+     v=7;
       background(fondo);
       player.control();
 
@@ -218,14 +224,68 @@ void draw() {
       fill(0);
       textSize(20);
       text(" Nivel: 2", width/4, height/10+5);
-      text("Time: "+time, width/4, height/10+35);
-      if (time>50){
+      text("Time: "+cntime, width/4, height/10+35);
+      if (cntime>50){
       for (int i = 0; i<nivel2.length; i++) {
         nivel2[i].update();
       if (nivel2[i].colide(player)) {
           nivel2[i].respawn();
           //break;
-          state=1;
+          state=5;
+      }
+      }
+      }
+      
+      //chiche
+      image(alga, xa-=3, ya, 100, 100);
+      if(xa <0){
+        xa = width;
+      }
+      
+      if (keyPressed&&key=='P' || keyPressed&&key=='p' ) {
+        state=1;
+      }//pausa
+    }    
+   break;
+   
+   case 5:{
+     if (time != second()){
+        cntime++;        
+        time = second();
+      }
+     
+     v=7;
+      background(fondo);
+      player.control();
+
+      image(malo2, xmalo,ymalo, 100,100);
+      
+      for (int i = 0; i<enemis2.length; i++) {
+        enemis2[i].update();
+        if (enemis2[i].colide(player)) {
+          enemis2[i].respawn();
+          vida=vida-1;
+          break;
+        }
+      }
+      if (vida==0) {
+        state=1;
+        init();
+        vida5=loadImage("vida5.png"); 
+        vida=5;
+      }
+      viviendo();
+      fill(0);
+      textSize(20);
+      text(" Nivel: 2", width/4, height/10+5);
+      text("Time: "+cntime, width/4, height/10+35);
+      if (cntime>50){
+      for (int i = 0; i<nivel2.length; i++) {
+        nivel2[i].update();
+      if (nivel2[i].colide(player)) {
+          nivel2[i].respawn();
+          //break;
+          state=5;
       }
       }
       }
