@@ -121,11 +121,9 @@ void draw() {
       
       if (time != second()){
         cntime++;        
+        time = second();
       }
-      if (time> 60){
-         cntime = 0; 
-      }
-      
+     
       background(fondo);
       player.control();
 
@@ -161,7 +159,7 @@ void draw() {
       }
       }
       }
-      if(cntime > 60){init();}
+      if(cntime == 60){init();cntime = 0;}
       //chiche
       image(alga, xa-=3, ya, 100, 100);
       if(xa <0){
