@@ -12,6 +12,7 @@ npc player;
 npc[] enemis = new npc[10];
 npc[] nivel2= new npc[2];
 npc[] enemis2=new npc[10];
+npc[] megaenemi=new npc[1];
 
 int xa=520, xa1=410, ya=410, ya1=390;
 int xrojo, yrojo, xazul, yazul;
@@ -82,6 +83,13 @@ void setup() {
     noTint();
     enemis2[i] = new npc(x, y, malo1) ;
   }
+  for (int i = 0; i<1; i++) {
+    float x = xmalo;
+    float y = ymalo;
+    noTint();
+    megaenemi[i] = new npc(x, y, malo2) ;
+  }
+  //megaenemi[1]= new npc(xmalo, ymalo, malo2);
 }
 
 void draw() {
@@ -262,17 +270,15 @@ void draw() {
       v=7;
       background(fondo);
       player.control();
-
-      image(malo2, xmalo, ymalo, 100, 100);
-
-      for (int i = 0; i<enemis2.length; i++) {
-        enemis2[i].update();
-        if (enemis2[i].colide(player)) {
-          enemis2[i].respawn();
+        
+        for (int i = 0; i<1; i++) {
+        megaenemi[i].update();
+        if (megaenemi[i].colide(player)) {
+          megaenemi[i].respawn();
           vida=vida-1;
           break;
         }
-      }
+        }
       if (vida==0) {
         state=1;
         init();
@@ -284,16 +290,7 @@ void draw() {
       textSize(20);
       text(" Nivel: 2", width/4, height/10+5);
       text("Time: "+cntime, width/4, height/10+35);
-      if (cntime>50) {
-        for (int i = 0; i<nivel2.length; i++) {
-          nivel2[i].update();
-          if (nivel2[i].colide(player)) {
-            nivel2[i].respawn();
-            //break;
-            state=5;
-          }
-        }
-      }
+      
 
       //chiche
       image(alga, xa-=3, ya, 100, 100);
@@ -306,5 +303,9 @@ void draw() {
       }//pausa
     }    
     break;
-  }
+    case 6:{
+      
+    }
+    break;
+}
 }
