@@ -16,7 +16,7 @@ npc[] enemis2=new npc[10];
 int xa=520, xa1=410, ya=410, ya1=390;
 int xrojo, yrojo, xazul, yazul;
 int vida=5;
-int time=0;
+int time, cntime=0;
 float v=5;
 //float xnivel=random(width, 2*width), ynivel=random(0,width);
 //float xnivel,ynivel;
@@ -118,8 +118,14 @@ void draw() {
     ///////////////////////////JUEGO
   case 2:    
     {
-      time=0;
-      time=second();
+      
+      if (time != second()){
+        cntime++;        
+      }
+      if (time> 60){
+         cntime = 0; 
+      }
+      
       background(fondo);
       player.control();
 
@@ -141,9 +147,9 @@ void draw() {
       fill(0);
       textSize(20);
       text(" Nivel: 1", width/4, height/10+5);
-      text("Time: "+time, width/4, height/10+35);
+      text("Time: "+cntime, width/4, height/10+35);
       //image(vida5,width/2,height/10, 125,25 );
-      if (time>30){
+      if (cntime>30){
       //ellipse(xnivel-=3,ynivel,10,10);
       //if(xnivel<0 ){xnivel=random(0,width); ynivel=random(0,height);}
       for (int i = 0; i<nivel2.length; i++) {
@@ -155,7 +161,7 @@ void draw() {
       }
       }
       }
-      if(time==60){init();}
+      if(cntime > 60){init();}
       //chiche
       image(alga, xa-=3, ya, 100, 100);
       if(xa <0){
