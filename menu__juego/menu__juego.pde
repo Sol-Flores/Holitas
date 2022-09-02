@@ -31,7 +31,7 @@ void setup() {
   malo=loadImage("malo.png");
   malo1=loadImage("malo1.png");
   malo2=loadImage("gnormal.png");
-  
+
   nivel=loadImage("nivel.png");
 
   fondo=loadImage("fondo.jpg");
@@ -60,22 +60,22 @@ void setup() {
   yazul= height/2+70;
 
   player = new npc(width*0.1, height*0.5, pez);
-  
-  for(int i=0; i<nivel2.length;i++){
-  float xnivel=random(width, 2*width); 
-  float ynivel=random(0,width);
-  noTint();
-  nivel2[i]= new npc(xnivel,ynivel,nivel);
+
+  for (int i=0; i<nivel2.length; i++) {
+    float xnivel=random(width, 2*width); 
+    float ynivel=random(0, width);
+    noTint();
+    nivel2[i]= new npc(xnivel, ynivel, nivel);
   }
-  
-  
+
+
   for (int i = 0; i<enemis.length; i++) {
     float x = random(width, 2*width);
     float y = random(0, width);
     noTint();
     enemis[i] = new npc(x, y, malo) ;
   }
-  
+
   for (int i = 0; i<enemis2.length; i++) {
     float x = random(width, 2*width);
     float y = random(0, width);
@@ -120,12 +120,12 @@ void draw() {
     ///////////////////////////JUEGO
   case 2:    
     {
-       v=5;
-      if (time != second()){
+      v=5;
+      if (time != second()) {
         cntime++;        
         time = second();
       }
-     
+
       background(fondo);
       player.control();
 
@@ -149,25 +149,28 @@ void draw() {
       text(" Nivel: 1", width/4, height/10+5);
       text("Time: "+cntime, width/4, height/10+35);
       //image(vida5,width/2,height/10, 125,25 );
-      if (cntime>30){
-      //ellipse(xnivel-=3,ynivel,10,10);
-      //if(xnivel<0 ){xnivel=random(0,width); ynivel=random(0,height);}
-      for (int i = 0; i<nivel2.length; i++) {
-        nivel2[i].update();
-      if (nivel2[i].colide(player)) {
-          nivel2[i].respawn();
-          //break;
-          state=4;
+      if (cntime>30) {
+        //ellipse(xnivel-=3,ynivel,10,10);
+        //if(xnivel<0 ){xnivel=random(0,width); ynivel=random(0,height);}
+        for (int i = 0; i<nivel2.length; i++) {
+          nivel2[i].update();
+          if (nivel2[i].colide(player)) {
+            nivel2[i].respawn();
+            //break;
+            state=4;
+          }
+        }
       }
+      if (cntime == 60) {
+        init();
+        cntime = 0;
       }
-      }
-      if(cntime == 60){init();cntime = 0;}
       //chiche
       image(alga, xa-=3, ya, 100, 100);
-      if(xa <0){
+      if (xa <0) {
         xa = width;
       }
-      
+
       if (keyPressed&&key=='P' || keyPressed&&key=='p' ) {
         state=1;
       }//pausa
@@ -195,14 +198,15 @@ void draw() {
       }
     }
     break;
-    
-   case 4:{
-      if (time != second()){
+
+  case 4:
+    {
+      if (time != second()) {
         cntime++;        
         time = second();
       }
-     
-     v=7;
+
+      v=7;
       background(fondo);
       player.control();
 
@@ -225,41 +229,42 @@ void draw() {
       textSize(20);
       text(" Nivel: 2", width/4, height/10+5);
       text("Time: "+cntime, width/4, height/10+35);
-      if (cntime>50){
-      for (int i = 0; i<nivel2.length; i++) {
-        nivel2[i].update();
-      if (nivel2[i].colide(player)) {
-          nivel2[i].respawn();
-          //break;
-          state=5;
+      if (cntime>50) {
+        for (int i = 0; i<nivel2.length; i++) {
+          nivel2[i].update();
+          if (nivel2[i].colide(player)) {
+            nivel2[i].respawn();
+            //break;
+            state=5;
+          }
+        }
       }
-      }
-      }
-      
+
       //chiche
       image(alga, xa-=3, ya, 100, 100);
-      if(xa <0){
+      if (xa <0) {
         xa = width;
       }
-      
+
       if (keyPressed&&key=='P' || keyPressed&&key=='p' ) {
         state=1;
       }//pausa
     }    
-   break;
-   
-   case 5:{
-     if (time != second()){
+    break;
+
+  case 5:
+    {
+      if (time != second()) {
         cntime++;        
         time = second();
       }
-     
-     v=7;
+
+      v=7;
       background(fondo);
       player.control();
 
-      image(malo2, xmalo,ymalo, 100,100);
-      
+      image(malo2, xmalo, ymalo, 100, 100);
+
       for (int i = 0; i<enemis2.length; i++) {
         enemis2[i].update();
         if (enemis2[i].colide(player)) {
@@ -279,27 +284,27 @@ void draw() {
       textSize(20);
       text(" Nivel: 2", width/4, height/10+5);
       text("Time: "+cntime, width/4, height/10+35);
-      if (cntime>50){
-      for (int i = 0; i<nivel2.length; i++) {
-        nivel2[i].update();
-      if (nivel2[i].colide(player)) {
-          nivel2[i].respawn();
-          //break;
-          state=5;
+      if (cntime>50) {
+        for (int i = 0; i<nivel2.length; i++) {
+          nivel2[i].update();
+          if (nivel2[i].colide(player)) {
+            nivel2[i].respawn();
+            //break;
+            state=5;
+          }
+        }
       }
-      }
-      }
-      
+
       //chiche
       image(alga, xa-=3, ya, 100, 100);
-      if(xa <0){
+      if (xa <0) {
         xa = width;
       }
-      
+
       if (keyPressed&&key=='P' || keyPressed&&key=='p' ) {
         state=1;
       }//pausa
     }    
-   break;
+    break;
   }
 }
