@@ -6,7 +6,7 @@ int state;//x, y;
 float inc=5; //jugador
 color colorPersonaje=#FAC774;
 
-int xjugar, yjugar, xcolor, ycolor; //botones
+int xjugar, yjugar, xcolor, ycolor,xnivel,ynivel; //botones
 
 npc player;
 npc[] enemis = new npc[10];
@@ -16,6 +16,7 @@ npc[] megaenemi=new npc[1];
 
 int xa=520, xa1=410, ya=410, ya1=390;
 int xrojo, yrojo, xazul, yazul;
+int xnivel1,ynivel1, xnivel2,ynivel2, xnivel3,ynivel3;
 int vida=5;
 int time, cntime=0;
 float v=5;
@@ -54,11 +55,20 @@ void setup() {
   yjugar= height/2; 
   xcolor=width/2; 
   ycolor= height/2+70;
+  xnivel=width/2;
+  ynivel=height/2-70;
 
   xrojo=width/2+150; 
   yrojo=height/2; 
   xazul=width/2+150; 
   yazul= height/2+70;
+  
+  xnivel2=width/2+150; 
+  ynivel2=height/2; 
+  xnivel3=width/2+150; 
+  ynivel3= height/2+70;
+  xnivel1=width/2+150; 
+  ynivel1= height/2-70;
 
   player = new npc(width*0.1, height*0.5, pez);
 
@@ -120,13 +130,26 @@ void draw() {
         if (mousePressed) {
           fill(155, 0, 0);
           state=3;
+          break;
+        }
+      }
+      textSize(25);
+      noStroke(); 
+      cuadrado("Niveles", #D7E7ED, xnivel, ynivel, 190, 50);
+
+      if (mouseX<xnivel+190/2 && mouseX>xnivel-190/2 && mouseY<ynivel+50/2 && mouseY>ynivel-50/2) { 
+        textSize(35);
+        if (mousePressed) {
+          fill(155, 0, 0);
+          state=8;
+          break;
         }
       }
       textSize(25);
     }
     break;
     ///////////////////////////JUEGO
-  case 2:    
+  case 2:    //nivel1
     {
       v=5;
       if (time != second()) {
@@ -165,7 +188,7 @@ void draw() {
           if (nivel2[i].colide(player)) {
             nivel2[i].respawn();
             //break;
-            state=4;
+            state=6;
           }
         }
       }
@@ -188,7 +211,7 @@ void draw() {
   case 3:    
     {
       background(255, 255, 255, 9);
-      noStroke();
+      noStroke(); textSize(25);
       cuadrado("Rojo", #FC9496, xrojo, yrojo, 190, 50);
       if (mouseX<xrojo+190/2 && mouseX>xrojo-190/2 && mouseY<yrojo+50/2 && mouseY>yrojo-50/2) { 
         if (mousePressed) {
@@ -196,7 +219,7 @@ void draw() {
           state=2;
         }
       }
-      noStroke();
+      noStroke(); textSize(25);
       cuadrado("Azul", #5D63FF, xazul, yazul, 190, 50);
       if (mouseX<xazul+190/2 && mouseX>xazul-190/2 && mouseY<yazul+50/2 && mouseY>yazul-50/2) { 
         if (mousePressed) {
@@ -207,7 +230,7 @@ void draw() {
     }
     break;
 
-  case 4:
+  case 4://nivel2
     {
       if (time != second()) {
         cntime++;        
@@ -243,7 +266,7 @@ void draw() {
           if (nivel2[i].colide(player)) {
             nivel2[i].respawn();
             //break;
-            state=5;
+            state=7;
           }
         }
       }
@@ -260,7 +283,7 @@ void draw() {
     }    
     break;
 
-  case 5:
+  case 5: //nivel 3
     {
       if (time != second()) {
         cntime++;        
@@ -270,7 +293,7 @@ void draw() {
       v=7;
       background(fondo);
       player.control();
-        
+        image(malo2,570,300);
         for (int i = 0; i<1; i++) {
         megaenemi[i].update();
         if (megaenemi[i].colide(player)) {
@@ -303,9 +326,32 @@ void draw() {
       }//pausa
     }    
     break;
-    case 6:{
-      
-    }
-    break;
-}
+    case 6:{nivel2();}break; //interfaz nivel 2
+    case 7: {nivel3();}break; //interfaz nivel 3
+    case 8: {
+    background(255, 255, 255, 9);
+      noStroke(); textSize(25);
+      cuadrado("Nivel 1", #FC9496, xnivel1, ynivel1, 190, 50);
+      if (mouseX<xnivel1+190/2 && mouseX>xnivel1-190/2 && mouseY<ynivel1+50/2 && mouseY>ynivel1-50/2) { 
+        if (mousePressed) { 
+          state=2;//nivel1
+        }
+      }
+      noStroke(); textSize(25);
+      cuadrado("Nivel 2", #FC9496, xnivel2, ynivel2, 190, 50);
+      if (mouseX<xnivel2+190/2 && mouseX>xnivel2-190/2 && mouseY<ynivel2+50/2 && mouseY>ynivel2-50/2) { 
+        if (mousePressed) { 
+          state=4;//nivel2
+        }
+      }
+      noStroke(); textSize(25);
+      cuadrado("Nivel 3", #FC9496, xnivel3, ynivel3, 190, 50);
+      if (mouseX<xnivel3+190/2 && mouseX>xnivel3-190/2 && mouseY<ynivel3+50/2 && mouseY>ynivel3-50/2) { 
+        if (mousePressed) { 
+          state=5;//nivel3
+        }
+      }
+    }break;
+    
+  }
 }
