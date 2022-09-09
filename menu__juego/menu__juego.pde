@@ -1,7 +1,7 @@
-PImage pez, malo, malo1, malo2, fondo, alga, alga1;
+PImage pez, malo, malo1, malo2, fondo, alga, alga1;//malo pez lobo y el malo1 es el tiburon enojao
 PImage vida1, vida2, vida3, vida4, vida5;
 PImage nivel;
-
+//fghjklkjhgfghjk
 int state;//x, y;
 float inc=5; //jugador
 color colorPersonaje=#FAC774;
