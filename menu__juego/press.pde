@@ -49,3 +49,20 @@ background(#9FB9FA);
     state=5;
   }
 }  
+
+void finjuego(){
+
+background(#9FB9FA); 
+  if (q<50) {
+    q++;
+  }
+  textSize(q);
+  text("Fin del juego", width/2, height/2);
+  textSize(25);
+  text("Pulsar cualquier tecla para volver a jugar...", width/2, 3*height/4+30);
+  textSize(15); 
+  text("felicitaciones, terminaste el juego, ningun enemigo te pudo atrapar", width/2, 3*height/4.5);
+  if (keyPressed) {
+    state=0;
+  }
+}  

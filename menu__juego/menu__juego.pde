@@ -1,4 +1,4 @@
-PImage pez, malo, malo1, malo2, fondo, alga, alga1;//malo pez lobo y el malo1 es el tiburon enojao
+PImage pez, malo, malo1, malo2, fondo, alga, alga1, bola;//malo pez lobo y el malo1 es el tiburon enojao
 PImage vida1, vida2, vida3, vida4, vida5;
 PImage nivel;
 //fghjklkjhgfghjk
@@ -6,17 +6,18 @@ int state;//x, y;
 float inc=5; //jugador
 color colorPersonaje=#FAC774;
 
-int xjugar, yjugar, xcolor, ycolor,xnivel,ynivel; //botones
+int xjugar, yjugar, xcolor, ycolor, xnivel, ynivel; //botones
 
 npc player;
 npc[] enemis = new npc[10];
 npc[] nivel2= new npc[2];
+npc[] nivel3= new npc[2];
 npc[] enemis2=new npc[10];
-npc[] megaenemi=new npc[1];
+npc[] megaenemi=new npc[5];
 
 int xa=520, xa1=410, ya=410, ya1=390;
 int xrojo, yrojo, xazul, yazul;
-int xnivel1,ynivel1, xnivel2,ynivel2, xnivel3,ynivel3;
+int xnivel1, ynivel1, xnivel2, ynivel2, xnivel3, ynivel3;
 int vida=5;
 int time, cntime=0;
 float v=5;
@@ -46,6 +47,7 @@ void setup() {
 
   alga=loadImage("alga.png");
   alga1=loadImage("alga1.png");
+  bola=loadImage("bola.png");
 
   imageMode(CENTER);
   rectMode(CENTER); 
@@ -62,7 +64,7 @@ void setup() {
   yrojo=height/2; 
   xazul=width/2+150; 
   yazul= height/2+70;
-  
+
   xnivel2=width/2+150; 
   ynivel2=height/2; 
   xnivel3=width/2+150; 
@@ -77,6 +79,12 @@ void setup() {
     float ynivel=random(0, width);
     noTint();
     nivel2[i]= new npc(xnivel, ynivel, nivel);
+  }
+    for (int i=0; i<nivel3.length; i++) {
+    float xnivel=random(width, 2*width); 
+    float ynivel=random(0, width);
+    noTint();
+    nivel3[i]= new npc(xnivel, ynivel, nivel);
   }
 
 
@@ -97,7 +105,7 @@ void setup() {
     float x = xmalo;
     float y = ymalo;
     noTint();
-    megaenemi[i] = new npc(x, y, malo2) ;
+    megaenemi[i] = new npc(x, y, bola) ;
   }
   //megaenemi[1]= new npc(xmalo, ymalo, malo2);
 }
@@ -211,7 +219,8 @@ void draw() {
   case 3:    
     {
       background(255, 255, 255, 9);
-      noStroke(); textSize(25);
+      noStroke(); 
+      textSize(25);
       cuadrado("Rojo", #FC9496, xrojo, yrojo, 190, 50);
       if (mouseX<xrojo+190/2 && mouseX>xrojo-190/2 && mouseY<yrojo+50/2 && mouseY>yrojo-50/2) { 
         if (mousePressed) {
@@ -219,7 +228,8 @@ void draw() {
           state=2;
         }
       }
-      noStroke(); textSize(25);
+      noStroke(); 
+      textSize(25);
       cuadrado("Azul", #5D63FF, xazul, yazul, 190, 50);
       if (mouseX<xazul+190/2 && mouseX>xazul-190/2 && mouseY<yazul+50/2 && mouseY>yazul-50/2) { 
         if (mousePressed) {
@@ -285,23 +295,29 @@ void draw() {
 
   case 5: //nivel 3
     {
+      v=5;      
       if (time != second()) {
         cntime++;        
+        megaenemi[0].megaene(player);
         time = second();
       }
 
-      v=7;
+      
       background(fondo);
+
       player.control();
-        image(malo2,570,300);
-        for (int i = 0; i<1; i++) {
-        megaenemi[i].update();
+      //medidor
+      //fill(0); text("x= " + mouseX +"y= " + mouseY, mouseX, mouseY);
+      for (int i = 0; i<1; i++) {
+        megaenemi[i].upda();
+        megaenemi[i].moveproyectil();
         if (megaenemi[i].colide(player)) {
-          megaenemi[i].respawn();
+          megaenemi[i].megaene(player);
           vida=vida-1;
           break;
         }
-        }
+      }
+      image(malo2, 570, 300);
       if (vida==0) {
         state=1;
         init();
@@ -313,7 +329,19 @@ void draw() {
       textSize(20);
       text(" Nivel: 2", width/4, height/10+5);
       text("Time: "+cntime, width/4, height/10+35);
-      
+
+
+      if (cntime>100) {
+        for (int i = 0; i<nivel2.length; i++) {
+          nivel2[i].update();
+          if (nivel2[i].colide(player)) {
+            nivel2[i].respawn();
+            state=9;
+            break;
+          }
+        }
+      }
+
 
       //chiche
       image(alga, xa-=3, ya, 100, 100);
@@ -326,32 +354,50 @@ void draw() {
       }//pausa
     }    
     break;
-    case 6:{nivel2();}break; //interfaz nivel 2
-    case 7: {nivel3();}break; //interfaz nivel 3
-    case 8: {
-    background(255, 255, 255, 9);
-      noStroke(); textSize(25);
+  case 6:
+    {
+      nivel2();
+    }
+    break; //interfaz nivel 2
+  case 7: 
+    {
+      nivel3();
+    }
+    break; //interfaz nivel 3
+  case 8: 
+    {
+      background(255, 255, 255, 9);
+      noStroke(); 
+      textSize(25);
       cuadrado("Nivel 1", #FC9496, xnivel1, ynivel1, 190, 50);
       if (mouseX<xnivel1+190/2 && mouseX>xnivel1-190/2 && mouseY<ynivel1+50/2 && mouseY>ynivel1-50/2) { 
         if (mousePressed) { 
           state=2;//nivel1
         }
       }
-      noStroke(); textSize(25);
+      noStroke(); 
+      textSize(25);
       cuadrado("Nivel 2", #FC9496, xnivel2, ynivel2, 190, 50);
       if (mouseX<xnivel2+190/2 && mouseX>xnivel2-190/2 && mouseY<ynivel2+50/2 && mouseY>ynivel2-50/2) { 
-        if (mousePressed) { 
+        if (mousePressed) {
+
           state=4;//nivel2
         }
       }
-      noStroke(); textSize(25);
+      noStroke(); 
+      textSize(25);
       cuadrado("Nivel 3", #FC9496, xnivel3, ynivel3, 190, 50);
       if (mouseX<xnivel3+190/2 && mouseX>xnivel3-190/2 && mouseY<ynivel3+50/2 && mouseY>ynivel3-50/2) { 
         if (mousePressed) { 
           state=5;//nivel3
         }
       }
-    }break;
-    
+    }
+    break;
+    case 9:{
+      finjuego();
+      
+    }
+    break;
   }
 }
