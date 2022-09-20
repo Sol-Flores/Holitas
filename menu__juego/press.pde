@@ -1,33 +1,26 @@
-int l=0;
+float l=190, ll=50/30; 
 void press() {
-  background(#0B00B9); 
-  if (l<50) {
-    l++;
+  background(fondo2); 
+  if (l<190) {
+    l++; 
   }
-  textSize(l);
-  text("Hola", width/2, height/2);
-  textSize(25);
-  text("Pulsar cualquier tecla", width/2, 3*height/4+30);
-  textSize(15); 
-  text("Bienvenidos a Atlantis, ten cuidado \n que los enemigos no te coman:)", width/2, 3*height/4.5);
-  if (keyPressed) {
+  if (ll<50) {
+     ll++;
+  }
+  textSize(l);fill(0);
+  image(inter, width/2,height/2,l,ll);
+  //text("Hola", width/2, height/2);
+
+  if (keyPressed&&key== ENTER) {
     state=1;
   }
 }
 int a=0;
 void nivel2(){
 
-background(#9FB9FA); 
-  if (a<50) {
-    a++;
-  }
-  textSize(a);
-  text("Nivel 2", width/2, height/2);
-  textSize(25);
-  text("Pulsar cualquier tecla para continuar...", width/2, 3*height/4+30);
-  textSize(15); 
-  text("felicitaciones, pasaste al siguiente nivel", width/2, 3*height/4.5);
-  if (keyPressed) {
+background(intern2); 
+  
+  if (keyPressed&&key== ENTER) {
     state=4;
   }
 }  
@@ -35,34 +28,25 @@ background(#9FB9FA);
 int q=0;
 void nivel3(){
 
-background(#9FB9FA); 
-  if (q<50) {
-    q++;
-  }
-  textSize(q);
-  text("Nivel 3", width/2, height/2);
-  textSize(25);
-  text("Pulsar cualquier tecla para continuar...", width/2, 3*height/4+30);
-  textSize(15); 
-  text("felicitaciones, pasaste al siguiente nivel", width/2, 3*height/4.5);
-  if (keyPressed) {
+background(intern3); 
+    if (keyPressed&&key== ENTER) {
     state=5;
   }
 }  
 
 void finjuego(){
 
-background(#9FB9FA); 
-  if (q<50) {
-    q++;
+background(GANAR); 
+  if (keyPressed&&key== 'R' ||keyPressed&&key== 'r') {
+    state=0;
   }
-  textSize(q);
-  text("Fin del juego", width/2, height/2);
-  textSize(25);
-  text("Pulsar cualquier tecla para volver a jugar...", width/2, 3*height/4+30);
-  textSize(15); 
-  text("felicitaciones, terminaste el juego, ningun enemigo te pudo atrapar", width/2, 3*height/4.5);
-  if (keyPressed) {
+}  
+
+void perdiste(){
+
+background(PERDER); 
+  
+  if (keyPressed&&key== 'R' ||keyPressed&&key== 'r') {
     state=0;
   }
 }  

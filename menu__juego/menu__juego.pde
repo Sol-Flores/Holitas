@@ -1,6 +1,8 @@
-PImage pez, malo, malo1, malo2, fondo, alga, alga1, bola;//malo pez lobo y el malo1 es el tiburon enojao
+PImage pez, malo, malo1, malo2, fondo, fondo1, fondo2, alga, alga1, bola;//malo pez lobo y el malo1 es el tiburon enojao
 PImage vida1, vida2, vida3, vida4, vida5;
+PImage bnivel,bcolor,bjugar,bn1,bn2,bn3,bnaranja,brojo,bazul;
 PImage nivel;
+PImage inter,intern2,intern3,GANAR,PERDER;
 //fghjklkjhgfghjk
 int state;//x, y;
 float inc=5; //jugador
@@ -16,7 +18,7 @@ npc[] enemis2=new npc[10];
 npc[] megaenemi=new npc[5];
 
 int xa=520, xa1=410, ya=410, ya1=390;
-int xrojo, yrojo, xazul, yazul;
+int xrojo, yrojo, xazul, yazul, xnaranja,ynaranja;
 int xnivel1, ynivel1, xnivel2, ynivel2, xnivel3, ynivel3;
 int vida=5;
 int time, cntime=0;
@@ -29,15 +31,23 @@ void setup() {
 
   size(696, 460);
 
-
+  //textFont();
   pez=loadImage("pez.png");
   malo=loadImage("malo.png");
   malo1=loadImage("malo1.png");
   malo2=loadImage("gnormal.png");
 
   nivel=loadImage("nivel.png");
+  
+  inter=loadImage("inter.png");
+  intern2=loadImage("intern2.png");
+  intern3=loadImage("intern3.png");
+  PERDER=loadImage("PERDER.png");
+  GANAR=loadImage("GANAR.png");
 
-  fondo=loadImage("fondo.jpg");
+  fondo=loadImage("fondo.png");
+  fondo1=loadImage("fondo1.png");
+  fondo2=loadImage("fondo2.png");
 
   vida5=loadImage("vida5.png");
   vida4=loadImage("vida4.png");
@@ -48,6 +58,16 @@ void setup() {
   alga=loadImage("alga.png");
   alga1=loadImage("alga1.png");
   bola=loadImage("bola.png");
+  
+  bjugar=loadImage("bjugar.png");
+  bcolor=loadImage("bcolor.png");
+  bnivel=loadImage("bnivel.png");
+  bn1=loadImage("bn1.png");
+  bn2=loadImage("bn2.png");
+  bn3=loadImage("bn3.png");
+  brojo=loadImage("brojo.png");
+  bazul=loadImage("bazul.png");
+  bnaranja=loadImage("bnaranja.png");
 
   imageMode(CENTER);
   rectMode(CENTER); 
@@ -64,6 +84,8 @@ void setup() {
   yrojo=height/2; 
   xazul=width/2+150; 
   yazul= height/2+70;
+  xnaranja=width/2+150; 
+  ynaranja= height/2-70;
 
   xnivel2=width/2+150; 
   ynivel2=height/2; 
@@ -72,7 +94,7 @@ void setup() {
   xnivel1=width/2+150; 
   ynivel1= height/2-70;
 
-  player = new npc(width*0.1, height*0.5, pez);
+  player = new npc(width*0.1+9, height*0.5, pez);
 
   for (int i=0; i<nivel2.length; i++) {
     float xnivel=random(width, 2*width); 
@@ -119,9 +141,9 @@ void draw() {
     break;
   case 1: 
     {
-      background(255, 255, 255, 50);
+      background(fondo1);
       noStroke();
-      cuadrado("Jugar", #D7E7ED, xjugar, yjugar, 190, 50);
+      image(bjugar,xjugar,yjugar);
       if (mouseX<xjugar+190/2 && mouseX>xjugar-190/2 && mouseY<yjugar+50/2 && mouseY>yjugar-50/2) {
         textSize(35);
         if (mousePressed) { 
@@ -131,8 +153,7 @@ void draw() {
       }
       textSize(25);
       noStroke(); 
-      cuadrado("Cambiar color", #D7E7ED, xcolor, ycolor, 190, 50);
-
+      image(bcolor,xcolor,ycolor);
       if (mouseX<xcolor+190/2 && mouseX>xcolor-190/2 && mouseY<ycolor+50/2 && mouseY>ycolor-50/2) { 
         textSize(35);
         if (mousePressed) {
@@ -143,7 +164,7 @@ void draw() {
       }
       textSize(25);
       noStroke(); 
-      cuadrado("Niveles", #D7E7ED, xnivel, ynivel, 190, 50);
+      image(bnivel,xnivel,ynivel);
 
       if (mouseX<xnivel+190/2 && mouseX>xnivel-190/2 && mouseY<ynivel+50/2 && mouseY>ynivel-50/2) { 
         textSize(35);
@@ -177,7 +198,7 @@ void draw() {
         }
       }
       if (vida==0) {
-        state=1;
+        state=10;
         init();
         vida5=loadImage("vida5.png"); 
         vida=5;
@@ -218,10 +239,12 @@ void draw() {
     /////////////////////////////////colores
   case 3:    
     {
-      background(255, 255, 255, 9);
+      background(fondo1);
       noStroke(); 
       textSize(25);
-      cuadrado("Rojo", #FC9496, xrojo, yrojo, 190, 50);
+      image(malo1,width/2-140,yrojo,88*3,64*3);
+      image(brojo,xrojo,yrojo);
+      //cuadrado("Rojo", #FC9496, xrojo, yrojo, 190, 50);
       if (mouseX<xrojo+190/2 && mouseX>xrojo-190/2 && mouseY<yrojo+50/2 && mouseY>yrojo-50/2) { 
         if (mousePressed) {
           colorPersonaje= #FF0307; 
@@ -230,10 +253,21 @@ void draw() {
       }
       noStroke(); 
       textSize(25);
-      cuadrado("Azul", #5D63FF, xazul, yazul, 190, 50);
+      image(bazul,xazul,yazul);
+      //cuadrado("Azul", #5D63FF, xazul, yazul, 190, 50);
       if (mouseX<xazul+190/2 && mouseX>xazul-190/2 && mouseY<yazul+50/2 && mouseY>yazul-50/2) { 
         if (mousePressed) {
           colorPersonaje=#0383FF; 
+          state=2;
+        }
+      }
+      noStroke(); 
+      textSize(25);
+      image(bnaranja,xnaranja,ynaranja);
+      //cuadrado("Azul", #5D63FF, xazul, yazul, 190, 50);
+      if (mouseX<xnaranja+190/2 && mouseX>xnaranja-190/2 && mouseY<ynaranja+50/2 && mouseY>ynaranja-50/2) { 
+        if (mousePressed) {
+          colorPersonaje=#FAC774; 
           state=2;
         }
       }
@@ -260,7 +294,7 @@ void draw() {
         }
       }
       if (vida==0) {
-        state=1;
+        state=10;
         init();
         vida5=loadImage("vida5.png"); 
         vida=5;
@@ -319,7 +353,7 @@ void draw() {
       }
       image(malo2, 570, 300);
       if (vida==0) {
-        state=1;
+        state=10;
         init();
         vida5=loadImage("vida5.png"); 
         vida=5;
@@ -366,38 +400,56 @@ void draw() {
     break; //interfaz nivel 3
   case 8: 
     {
-      background(255, 255, 255, 9);
+      background(fondo1);
       noStroke(); 
       textSize(25);
-      cuadrado("Nivel 1", #FC9496, xnivel1, ynivel1, 190, 50);
+      image(malo,width/2-140,ynivel2,128*3,64*3);
+      image(bn1,xnivel1,ynivel1);
+      //cuadrado("Nivel 1", #FC9496, xnivel1, ynivel1, 190, 50);
       if (mouseX<xnivel1+190/2 && mouseX>xnivel1-190/2 && mouseY<ynivel1+50/2 && mouseY>ynivel1-50/2) { 
         if (mousePressed) { 
+          time=0;
+          vida=5;
           state=2;//nivel1
         }
       }
       noStroke(); 
       textSize(25);
-      cuadrado("Nivel 2", #FC9496, xnivel2, ynivel2, 190, 50);
+      image(bn2,xnivel2,ynivel2);
+      //cuadrado("Nivel 2", #FC9496, xnivel2, ynivel2, 190, 50);
       if (mouseX<xnivel2+190/2 && mouseX>xnivel2-190/2 && mouseY<ynivel2+50/2 && mouseY>ynivel2-50/2) { 
         if (mousePressed) {
-
+          time=0;
+          vida=5;
           state=4;//nivel2
+
         }
       }
       noStroke(); 
       textSize(25);
-      cuadrado("Nivel 3", #FC9496, xnivel3, ynivel3, 190, 50);
+      image(bn3,xnivel3,ynivel3);
+      //cuadrado("Nivel 3", #FC9496, xnivel3, ynivel3, 190, 50);
       if (mouseX<xnivel3+190/2 && mouseX>xnivel3-190/2 && mouseY<ynivel3+50/2 && mouseY>ynivel3-50/2) { 
         if (mousePressed) { 
+          time=0;
+          vida=5;
           state=5;//nivel3
+         
         }
       }
     }
     break;
     case 9:{
+      time=0;
+      vida=5;
       finjuego();
       
     }
     break;
+    case 10:{
+      time=0;
+      vida=5;
+     perdiste(); 
+    }
   }
 }
