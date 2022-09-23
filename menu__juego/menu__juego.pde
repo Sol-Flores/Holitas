@@ -35,7 +35,7 @@ void setup() {
   pez=loadImage("pez.png");
   malo=loadImage("malo.png");
   malo1=loadImage("malo1.png");
-  malo2=loadImage("gnormal.png");
+  malo2=loadImage("pulpon.png");
 
   nivel=loadImage("nivel.png");
   
@@ -181,11 +181,12 @@ void draw() {
   case 2:    //nivel1
     {
       v=5;
+      
       if (time != second()) {
         cntime++;        
         time = second();
       }
-
+      
       background(fondo);
       player.control();
 
@@ -248,7 +249,7 @@ void draw() {
       if (mouseX<xrojo+190/2 && mouseX>xrojo-190/2 && mouseY<yrojo+50/2 && mouseY>yrojo-50/2) { 
         if (mousePressed) {
           colorPersonaje= #FF0307; 
-          state=2;
+          state=1;
         }
       }
       noStroke(); 
@@ -258,7 +259,7 @@ void draw() {
       if (mouseX<xazul+190/2 && mouseX>xazul-190/2 && mouseY<yazul+50/2 && mouseY>yazul-50/2) { 
         if (mousePressed) {
           colorPersonaje=#0383FF; 
-          state=2;
+          state=1;
         }
       }
       noStroke(); 
@@ -268,7 +269,7 @@ void draw() {
       if (mouseX<xnaranja+190/2 && mouseX>xnaranja-190/2 && mouseY<ynaranja+50/2 && mouseY>ynaranja-50/2) { 
         if (mousePressed) {
           colorPersonaje=#FAC774; 
-          state=2;
+          state=1;
         }
       }
     }
@@ -398,7 +399,7 @@ void draw() {
       nivel3();
     }
     break; //interfaz nivel 3
-  case 8: 
+  case 8: //niveles interfaces
     {
       background(fondo1);
       noStroke(); 
@@ -408,7 +409,7 @@ void draw() {
       //cuadrado("Nivel 1", #FC9496, xnivel1, ynivel1, 190, 50);
       if (mouseX<xnivel1+190/2 && mouseX>xnivel1-190/2 && mouseY<ynivel1+50/2 && mouseY>ynivel1-50/2) { 
         if (mousePressed) { 
-          time=0;
+          cntime=0;
           vida=5;
           state=2;//nivel1
         }
@@ -419,7 +420,7 @@ void draw() {
       //cuadrado("Nivel 2", #FC9496, xnivel2, ynivel2, 190, 50);
       if (mouseX<xnivel2+190/2 && mouseX>xnivel2-190/2 && mouseY<ynivel2+50/2 && mouseY>ynivel2-50/2) { 
         if (mousePressed) {
-          time=0;
+          cntime=30;
           vida=5;
           state=4;//nivel2
 
@@ -431,7 +432,7 @@ void draw() {
       //cuadrado("Nivel 3", #FC9496, xnivel3, ynivel3, 190, 50);
       if (mouseX<xnivel3+190/2 && mouseX>xnivel3-190/2 && mouseY<ynivel3+50/2 && mouseY>ynivel3-50/2) { 
         if (mousePressed) { 
-          time=0;
+          cntime=60;
           vida=5;
           state=5;//nivel3
          
@@ -440,14 +441,14 @@ void draw() {
     }
     break;
     case 9:{
-      time=0;
+      cntime=0;
       vida=5;
       finjuego();
       
     }
     break;
     case 10:{
-      time=0;
+      cntime=0;
       vida=5;
      perdiste(); 
     }

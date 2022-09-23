@@ -47,6 +47,7 @@ void perdiste(){
 background(PERDER); 
   
   if (keyPressed&&key== 'R' ||keyPressed&&key== 'r') {
+    cntime=0;
     state=0;
   }
 }  
