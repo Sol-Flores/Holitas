@@ -32,7 +32,15 @@ background(intern3);
     if (keyPressed&&key== ENTER) {
     state=5;
   }
-}  
+} 
+
+void nivel4(){
+
+background(intern4); 
+    if (keyPressed&&key== ENTER) {
+    state=11;
+  }
+} 
 
 void finjuego(){
 

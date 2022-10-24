@@ -14,10 +14,11 @@ class npc {
     this.x += xv*v;
     this.y += yv*v;
   }
-  void control() {
-    tint(colorPersonaje);
+  void spamdori() {
     image(logo, x, y);
     noTint();
+  }
+  void movimiento() {
     if (keyPressed&&key=='D' || keyPressed&&key=='d' ) {
       x= x + inc;
     }//derecha
@@ -44,6 +45,12 @@ class npc {
       y = yl/2;
     }
   }
+  void movimiento2(){}
+  void control() {
+    tint(colorPersonaje);
+    image(logo, x, y);
+    noTint();
+  }
   void update() {
     image(logo, x, y);
     x -= v;   
@@ -55,10 +62,8 @@ class npc {
   void upda() {
     image(logo, x, y);
     x += xv*v;
-    
-   y += yv*v;
-    
-    
+
+    y += yv*v;
   }
   boolean colide(npc player) {
     boolean inx = x > player.x-player.xl/2 && x <player.x+player.xl/2;
