@@ -1,4 +1,4 @@
-import hypermedia.net.*;
+import hypermedia.net.*;//uwu este es el del jugador1
 UDP udp; 
 PImage pez, malo, malo1, malo2, fondo, fondo1, fondo2, alga, alga1, bola, dori;//malo pez lobo y el malo1 es el tiburon enojao
 PImage vida1, vida2, vida3, vida4, vida5;
